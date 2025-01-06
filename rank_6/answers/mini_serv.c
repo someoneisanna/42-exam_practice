@@ -6,7 +6,7 @@
 #include <sys/select.h>
 #include <netinet/in.h>
 
-int		sockfd, max_fd, clients[5000], client_id;
+int		sockfd, max_fd, clients[3000], client_id;
 fd_set	rfds, wfds, allfds;
 
 void error(char *msg)
@@ -19,7 +19,7 @@ void error(char *msg)
 
 void broadcast_message(char *msg, int client_socket, char *buffer)
 {
-	char str[500000];
+	char str[120000];
 	bzero(str, sizeof(str));
 	if (buffer)
 		sprintf(str, msg, clients[client_socket], buffer);
@@ -85,7 +85,7 @@ int main(int ac, char **av)
 				}
 				else
 				{
-					char buffer[500000];
+					char buffer[120000];
 					bzero(buffer, sizeof(buffer));
 					int bytes_received = 1;
 					while (bytes_received == 1 && buffer[strlen(buffer) - 1] != '\n')
